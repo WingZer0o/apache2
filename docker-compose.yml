@@ -8,6 +8,7 @@ services:
       - "8000:8000"
     depends_on:
       - apache
+      - ollama
     deploy:
       resources:
         reservations:
@@ -27,3 +28,22 @@ services:
     volumes:
       - ./apache/certs/yourdomain.crt:/etc/ssl/certs/yourdomain.crt
       - ./apache/certs/yourdomain.key:/etc/ssl/private/yourdomain.key
+
+  ollama:
+    container_name: ollama
+    build:
+      context: ./ollama
+      dockerfile: Dockerfile
+    ports: 
+      - "11434:11434"
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+networks:
+  app-network:
+    driver: bridge

@@ -7,7 +7,6 @@ WORKDIR /python-docker
 
 COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt
-RUN pip install gunicorn
 
 COPY . .
 EXPOSE 8000
