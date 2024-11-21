@@ -1,0 +1,18 @@
+services:
+  flask:
+    container_name: flask
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    depends_on:
+      - apache
+  
+  apache:
+    container_name: apache
+    build:
+      context: ./apache
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
