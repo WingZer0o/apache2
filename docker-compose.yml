@@ -23,3 +23,7 @@ services:
       dockerfile: Dockerfile
     ports:
       - "80:80"
+      - "443:443"
+    volumes:
+      - ./apache/certs/yourdomain.crt:/etc/ssl/certs/yourdomain.crt
+      - ./apache/certs/yourdomain.key:/etc/ssl/private/yourdomain.key

@@ -13,7 +13,10 @@ RUN a2enmod proxy
 RUN a2enmod proxy_http
 RUN a2enmod proxy_balancer
 RUN a2enmod lbmethod_byrequests
+RUN a2enmod rewrite
+RUN a2enmod ssl
 
 
 EXPOSE 80
+EXPOSE 443
 CMD ["apachectl", "-D", "FOREGROUND"]
