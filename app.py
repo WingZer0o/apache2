@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 from werkzeug.middleware.proxy_fix import ProxyFix
 from connections.ollama_connection import model
+import torch
 
 app = Flask(__name__)
 app.wsgi_app = ProxyFix(
@@ -8,8 +9,10 @@ app.wsgi_app = ProxyFix(
 
 @app.route("/")
 def hello():
-    prompt = model.invoke("Come up with 10 names for a song about parrots")
-    return prompt
+    if torch.cuda.is_available():
+        return "GPU is available"
+    else:
+        return "GPU not available"
 
 @app.route('/prompt', methods=['POST'])
 def handle_data():
