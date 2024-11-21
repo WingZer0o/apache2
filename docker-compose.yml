@@ -8,6 +8,13 @@ services:
       - "8000:8000"
     depends_on:
       - apache
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
   
   apache:
     container_name: apache
