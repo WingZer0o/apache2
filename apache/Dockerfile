@@ -6,14 +6,13 @@ RUN apt-get update && \
     apt-get install -y apache2 && \
     apt-get clean
 
-COPY ./httpd.conf /etc/apache2/sites-available/000-default.conf
+COPY ./default-conf.conf /etc/apache2/sites-available/000-default.conf
     
 # Enable required Apache modules
 RUN a2enmod proxy
 RUN a2enmod proxy_http
 RUN a2enmod proxy_balancer
 RUN a2enmod lbmethod_byrequests
-RUN a2enmod rewrite
 RUN a2enmod ssl
 
 
