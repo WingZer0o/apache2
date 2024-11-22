@@ -30,6 +30,8 @@ services:
     volumes:
       - ./apache/certs/yourdomain.crt:/etc/ssl/certs/yourdomain.crt
       - ./apache/certs/yourdomain.key:/etc/ssl/private/yourdomain.key
+      - ./logs/yourdomain.com.log:/var/log/apache/yourdomain.com.log
+      - ./logs/yourdomain.com.error.log:/var/log/apache/yourdomain.com.error.log
 
   ollama:
     container_name: ollama
