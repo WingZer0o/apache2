@@ -18,9 +18,7 @@ def hello():
 def handle_data():
     data = request.get_json()
     prompt = model.invoke(data["message"])
-
-    # Return a response
     return jsonify({'response': prompt}), 200
 
 if __name__ == "__main__":
-    app.run()  # For development only
+    app.run()

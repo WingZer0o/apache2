@@ -9,4 +9,4 @@ def max_workers():
 
 bind = '0.0.0.0:8000'
 max_requests = 1000
-workers = 1
+workers = max_workers()
