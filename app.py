@@ -10,7 +10,7 @@ app.wsgi_app = ProxyFix(
 @app.route("/")
 def hello():
     if torch.cuda.is_available():
-        return "GPU is available"
+        return "GPU is available-test-github-edit"
     else:
         return "GPU not available"
 
