@@ -1,0 +1,61 @@
+services:
+  flask:
+    container_name: flask
+    image: wingzer0o/flask:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: prod
+    develop:
+      watch:
+        - action: sync
+          path: .
+          target: /python-docker
+    ports:
+      - "8000:8000"
+      - "5678:5678"
+    depends_on:
+      - apache
+      - ollama
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+  
+  apache:
+    container_name: apache
+    image: wingzer0o/apache:latest
+    build:
+      context: ./apache
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /etc/ssl/certs/yourdomain.crt:/etc/ssl/certs/yourdomain.crt
+      - /etc/ssl/private/yourdomain.key:/etc/ssl/private/yourdomain.key
+      - /var/log/apache/yourdomain.com.log:/var/log/apache/yourdomain.com.log
+      - /var/log/apache/yourdomain.com.error.log:/var/log/apache/yourdomain.com.error.log
+
+  ollama:
+    container_name: ollama
+    image: wingzer0o/ollama:latest
+    build:
+      context: ./ollama
+      dockerfile: Dockerfile
+    ports: 
+      - "11434:11434"
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+networks:
+  app-network:
+    driver: bridge
