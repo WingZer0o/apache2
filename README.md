@@ -11,6 +11,9 @@ We are assuming making this assumptions for the NVIDIA drivers if you are using 
 cd docker-scripts
 ./setup-host.sh
 ```
+After installing the correct host machine drivers and GPU container support, you can either use the `start-dev.sh` or `start-prod.sh`. Depending on if you need debugging suppport for the Flask application.
+
+You can navigate to localhost or change your hosts file to contain a record to `yourdomain.com` to view the site locally.
 
 ## Disclaimer 
 Initial Docker Compose build might take a few moments.
