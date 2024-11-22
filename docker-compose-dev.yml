@@ -5,6 +5,11 @@ services:
       context: .
       dockerfile: Dockerfile
       target: dev
+    develop:
+      watch:
+        - action: sync
+          path: .
+          target: /python-docker
     ports:
       - "8000:8000"
       - "5678:5678"
@@ -32,6 +37,7 @@ services:
       - ./apache/certs/yourdomain.key:/etc/ssl/private/yourdomain.key
       - ./logs/yourdomain.com.log:/var/log/apache/yourdomain.com.log
       - ./logs/yourdomain.com.error.log:/var/log/apache/yourdomain.com.error.log
+      - ./:/python-docker
 
   ollama:
     container_name: ollama
