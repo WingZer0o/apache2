@@ -59,6 +59,7 @@ services:
 
   garnet:
     container_name: garnet
+    image: wingzer0o/garnet:latest
     build:
       context: .
       dockerfile: garnet/Dockerfile
