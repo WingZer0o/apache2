@@ -17,6 +17,7 @@ services:
       - apache
       - ollama
       - garnet
+      - postgres
     deploy:
       resources:
         reservations:
@@ -64,6 +65,20 @@ services:
       - "6379:6379"
     volumes:
       - ./garnet:/data
+    networks:
+      - app-network
+
+  postgresql:
+    container_name: postgresql
+    image: postgres:14-alpine
+    ports:
+      - 5432:5432
+    volumes:
+      - ~/apps/postgres:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=apache
     networks:
       - app-network
 
