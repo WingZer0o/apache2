@@ -10,7 +10,7 @@ services:
       - apache
       - ollama
       - garnet
-      - postgres
+      - postgresql
     deploy:
       resources:
         reservations:
