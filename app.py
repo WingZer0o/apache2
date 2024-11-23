@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 from werkzeug.middleware.proxy_fix import ProxyFix
 from connections.ollama_connection import model
-from routes.simple_page import simple_page
+from routes.jwt_print import jwt_print
 
 app = Flask(__name__)
 app.wsgi_app = ProxyFix(
@@ -20,7 +20,7 @@ def handle_data():
     prompt = model.invoke(data["message"])
     return jsonify({'response': prompt}), 200
 
-app.register_blueprint(simple_page)
+app.register_blueprint(jwt_print)
 
 if __name__ == "__main__":
     app.run()

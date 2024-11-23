@@ -3,11 +3,11 @@ import jwt
 import os
 import datetime
 
-simple_page = Blueprint('simple_page', __name__)
+jwt_print = Blueprint('jwt_print', __name__)
 
 
 
-@simple_page.route("/get-token", methods=['GET'])
+@jwt_print.route("/get-token", methods=['GET'])
 def test():
         payload = {
                 "user_id": 123,  # Example user data
@@ -19,7 +19,7 @@ def test():
         token = jwt.encode(payload, jwt_private_key.read(), algorithm="RS256")
         return jsonify({'token': token}), 200
 
-@simple_page.route("/test-token", methods=['POST'])
+@jwt_print.route("/test-token", methods=['POST'])
 def test2():
         body = request.json
         try:
