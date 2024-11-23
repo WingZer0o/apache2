@@ -2,8 +2,7 @@ from flask import Blueprint, request
 import jwt
 import datetime
 
-simple_page = Blueprint('simple_page', __name__,
-                        template_folder='templates')
+simple_page = Blueprint('simple_page', __name__)
 
 
 SECRET_KEY = "key"
