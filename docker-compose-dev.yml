@@ -16,6 +16,7 @@ services:
     depends_on:
       - apache
       - ollama
+      - garnet
     deploy:
       resources:
         reservations:
@@ -53,6 +54,18 @@ services:
             - driver: nvidia
               count: 1
               capabilities: [gpu]
+
+  garnet:
+    container_name: garnet
+    build:
+      context: .
+      dockerfile: garnet/Dockerfile
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./garnet:/data
+    networks:
+      - app-network
 
 networks:
   app-network:
