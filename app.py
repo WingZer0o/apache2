@@ -2,7 +2,6 @@ from flask import Flask, request, jsonify
 from werkzeug.middleware.proxy_fix import ProxyFix
 from connections.ollama_connection import model
 from routes.simple_page import simple_page
-import torch
 
 app = Flask(__name__)
 app.wsgi_app = ProxyFix(

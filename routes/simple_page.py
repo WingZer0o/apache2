@@ -1,11 +1,11 @@
-from flask import Blueprint, request
+from flask import Blueprint, request, current_app, jsonify
 import jwt
+import os
 import datetime
 
 simple_page = Blueprint('simple_page', __name__)
 
 
-SECRET_KEY = "key"
 
 @simple_page.route("/get-token", methods=['GET'])
 def test():
@@ -13,15 +13,19 @@ def test():
                 "user_id": 123,  # Example user data
                 "role": "admin",
                 "exp": datetime.datetime.utcnow() + datetime.timedelta(seconds=30)  # Token valid for 1 hour
-        } 
-        token = jwt.encode(payload, SECRET_KEY, algorithm="HS256")
-        return token
+        }
+        key_path = os.path.join(current_app.root_path, 'routes', 'jwt', 'certs', 'yourdomain-private.pem')
+        jwt_private_key = open(key_path, "r")
+        token = jwt.encode(payload, jwt_private_key.read(), algorithm="RS256")
+        return jsonify({'token': token}), 200
 
 @simple_page.route("/test-token", methods=['POST'])
 def test2():
         body = request.json
         try:
-                decoded = jwt.decode(body["token"], SECRET_KEY, algorithms=["HS256"])
+                key_path = os.path.join(current_app.root_path, 'routes', 'jwt', 'certs', 'yourdomain-public.pem')
+                jwt_public_key = open(key_path, "r")
+                decoded = jwt.decode(body["token"], jwt_public_key.read(), algorithms=["RS256"])
                 return "Decoded Payload: {decoded}"
         except jwt.ExpiredSignatureError:
                 return "Token has expired"
