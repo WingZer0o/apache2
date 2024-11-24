@@ -1,3 +1,3 @@
 ollama serve &
 ollama list
-ollama pull llama3.1
+ollama pull llama3.2
